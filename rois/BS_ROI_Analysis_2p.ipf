@@ -86,6 +86,7 @@ Function/Wave ImageReg_OnlyTrans(image, [ref_frame])
     wave OutWave = $("RegIm_" + nameofwave(image))
     
     newImage/K=1/F OutWave
+//    addaslider()
     
     return OutWave
 End	
