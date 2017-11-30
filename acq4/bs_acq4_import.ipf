@@ -1,7 +1,7 @@
 #pragma rtGlobals=3		// Use modern global access method and strict wave access.
 #include <all ip procedures>
 Menu "acq4"
-	"Import an acq4", loadAcq4Image()
+	"Import an acq4 image", loadAcq4Image()
 	"Import acq4 encoder", loadACQ4EncoderData()
 end
 
