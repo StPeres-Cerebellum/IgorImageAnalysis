@@ -60,7 +60,7 @@ Menu "GraphMarquee"
 End
 
 function stabilizeImage()
-	getMarquee/K
+	getMarquee
 	string ImageName=ImageNameList(S_MarqueeWin, ";")
 	Imagename = Replacestring(";", Imagename,"") 
 	wave Image = ImageNameToWaveRef(S_MarqueeWin,ImageName)
@@ -69,17 +69,29 @@ function stabilizeImage()
 	
 end
 
-Function/Wave ImageReg_OnlyTrans(image, [ref_frame])
+Function/Wave ImageReg_OnlyTrans(image, [ref_frame, avg])
     wave image
     variable ref_frame		// choose which frame to use as the registration image
     							// last frame is used if not specified
+    variable avg
+    
+    if(paramisdefault(avg))
+    	avg = 0
+    endif
+    
     if(paramisdefault(ref_frame))
     	ref_frame = dimsize(image,2)
     endif
     
     duplicate/o/free image, image_s
     redimension/s image_s
-    Duplicate/o/r=[][][round(ref_frame)]/free image_s, refwave
+    
+    if(avg)
+    	wave refWave = averageStack()
+    else
+    	Duplicate/o/r=[][][round(ref_frame)]/free image_s, refwave
+    endif
+    
     
     imageregistration/q/refm=0/tstm=0/rot={0,0,0}/skew={0,0,0}/stck refwave=refwave, testwave=image_s
     wave M_RegOut; Duplicate/o M_RegOut, $("RegIm_" + nameofwave(image))
@@ -325,7 +337,7 @@ Function scrollImagePlanesHook(s)	//This is a hook for the mousewheel movement i
 	
 end
 
-function averageStack()
+function/wave averageStack()
 	getmarquee/K left, bottom
 	string ImageName=ImageNameList("","")
 	Imagename = Replacestring(";", Imagename,"") 
@@ -341,6 +353,7 @@ function averageStack()
 	newImage/f M_AveImage
 	ModifyGraph width={Plan,1,bottom,left}
 	
+	return m_aveImage
 //	dowindow/F averagedStack
 //	if(!v_flag)
 //		display/k=1/n=averagedStack
@@ -792,7 +805,8 @@ Function Raw(ROI,Image)  //READ from variables associated with "ROI"
 	NVAR bottom =$bottom_string
 	NVAR KCT = root:currentrois:KCT
 	string scanParameters = note(Image)
-	KCT = numberbykey("KCT", scanParameters)
+	KCT = dimdelta(image, 2)
+//	KCT = numberbykey("KCT", scanParameters)
 //			****************
 //			process ROI
 	
