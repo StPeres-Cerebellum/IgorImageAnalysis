@@ -29,7 +29,7 @@ function BatchAnalyzeAllStacks(OnlyOneFolder)
 		
 	for(FolderInc = FolderInc; FolderInc < 100; FolderInc+= 1)
 		Path = FolderFolderPath+FolderPrefix+num2str(FolderInc)
-		//print path
+//		print path
 		newpath/z/o/q TempPath path//; print v_flag
 		if(v_flag == 0)
 			//Print FolderPrefix + num2str(Folderinc)							
@@ -38,7 +38,7 @@ function BatchAnalyzeAllStacks(OnlyOneFolder)
 			string NeMFolderName = getdatafolder (1)
 			make/n=(0) ImageTimer
 			wave ImageTimer
-			//print path
+//			print path
 			//variable incstart = inc, 
 			
 			variable NumofFIles = 0
@@ -60,16 +60,16 @@ function BatchAnalyzeAllStacks(OnlyOneFolder)
 		endfor
 			variable TimerStep = 0
 			variable err
-						string thisTrial = FolderPrefix+num2str(folderinc)
-						string ProgOPEN2 = "progresswindow open=progress, text = " + "\""+thisTrial+"\""  
-						string ProgClose = "progresswindow close"
-						execute ProgOPEN2
-			
-			for(inc = 0; inc < 1000; inc += 1)
-						variable progfrac2 = Inc/NumofFiles 										//more progress window bullshit
-						String ProgUpdate2 = "progresswindow frac="+num2str(progFrac2)
-						execute ProgUpdate2
-			
+//						string thisTrial = FolderPrefix+num2str(folderinc)
+//						string ProgOPEN2 = "progresswindow open=progress, text = " + "\""+thisTrial+"\""  
+//						string ProgClose = "progresswindow close"
+//						execute ProgOPEN2
+//			
+//			for(inc = 0; inc < 1000; inc += 1)
+//						variable progfrac2 = Inc/NumofFiles 										//more progress window bullshit
+//						String ProgUpdate2 = "progresswindow frac="+num2str(progFrac2)
+//						execute ProgUpdate2
+//			
 				filename = prefix+num2str(inc)+extension
 				//print filename
 				string windowname = prefix+num2str(inc)+"wndo"
@@ -119,7 +119,7 @@ function BatchAnalyzeAllStacks(OnlyOneFolder)
 			endif
 		endif
 	execute ProgClose
-	print folderinc
+//	print folderinc
 	endfor
 	execute ProgClose
 	
@@ -127,6 +127,8 @@ end
 
 Function QuickLoadFITS(path, filename)
 	String path, filename
+	
+//	print path, filename
 	
 	newpath/z/q/o path1, path
 	if(V_Flag == 1 )
@@ -142,7 +144,7 @@ Function QuickLoadFITS(path, filename)
 	endif
 	//print refnum, s_filename, filename
 
-	LoadOneFITS(refnum, "root:import", 0,0,0,0,1,1e10)	// From Igor
+	LoadOneFITS(refnum, "root:import", 0,0,0,0,1,1e10,1e10)	// From Igor
 	Close/a
 	return err
 end

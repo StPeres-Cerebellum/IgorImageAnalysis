@@ -938,3 +938,26 @@ Function keyboardHook(s)
 	endswitch
 	return hookResult		// 0 if nothing done, else 1
 End
+
+function/wave binDatabyX(xWave, yWave, binSize)	// use xWave to bin the data in yWave according binSize  of x
+	wave xWave, yWave
+	variable binSize
+	
+	duplicate/o/free yWave yWave_dif
+	differentiate/meth=2 yWave_dif
+	
+	variable totalbins = waveMax(xWave) / binSize
+	make/o/n=(totalBins) binnedData
+	variable thresh, i = 0, start = 0
+
+	for(thresh = binSize; thresh < (totalbins * binSize); thresh += binSize)
+		findLevel/P/Q xWave, thresh
+		binnedData[i] = sum(yWave_dif, start, floor(v_levelx))
+		start = floor(v_levelx)
+		i += 1
+	endfor
+	integrate binnedData
+	SetScale/P x 0,binSize,"", binnedData
+	return binnedData
+
+end
