@@ -108,20 +108,20 @@ function BatchAnalyzeAllStacks(OnlyOneFolder)
 					//killdatafolder root:import
 			
 				elseif (err == -1)
-					execute ProgClose
+//					execute ProgClose
 					return 0
 				endif
 		//	print inc
-			endfor
+//			endfor
 			
 			If(OnlyOneFolder == 1)
 				break
 			endif
 		endif
-	execute ProgClose
+//	execute ProgClose
 //	print folderinc
 	endfor
-	execute ProgClose
+//	execute ProgClose
 	
 end
 
